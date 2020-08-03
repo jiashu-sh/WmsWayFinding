@@ -278,8 +278,6 @@
             // cbShowShelfMap
             // 
             this.cbShowShelfMap.AutoSize = true;
-            this.cbShowShelfMap.Checked = true;
-            this.cbShowShelfMap.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbShowShelfMap.Location = new System.Drawing.Point(432, 7);
             this.cbShowShelfMap.Name = "cbShowShelfMap";
             this.cbShowShelfMap.Size = new System.Drawing.Size(99, 21);
