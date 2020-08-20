@@ -16,5 +16,18 @@ namespace WinAppWcsClient01.HelpAbout
         {
             InitializeComponent();
         }
+
+        private void btnInitWh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DaAbout.InsertInitWarehouse())
+                    MessageBox.Show("Init warehouse 01 success.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

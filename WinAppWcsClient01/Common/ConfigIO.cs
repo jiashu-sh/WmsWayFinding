@@ -4,14 +4,19 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WinAppWcsClient01.Common
 {
     class ConfigIO
     {
-        public static string GetConnectionString(string connectionName)
+        public static string GetConnectionString(string ConnectionName)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings[connectionName].ConnectionString.ToString();
+            string connectionString = @"Data Source=" + Application.StartupPath + "\\" + ConfigurationManager.ConnectionStrings[ConnectionName].ConnectionString.ToString();
+
+            if (CommonDa.GetDbType() == EnumDbTypes.PgSql)
+                connectionString = ConfigurationManager.ConnectionStrings[ConnectionName].ConnectionString.ToString();
+
             return connectionString;
         }
 

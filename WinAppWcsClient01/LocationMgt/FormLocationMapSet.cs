@@ -66,7 +66,7 @@ namespace WinAppWcsClient01.LocationMgt
             if (_bLoadDbData)
             {
                 string strsql = "select * from loc_area where void=0";
-                DataSet dsArea = Common.CommonDaPgsql.ExecuteQuery(strsql);
+                DataSet dsArea = Common.CommonDa.ExecuteQuery(strsql);
                 cbAreaNo.DisplayMember = "area_desc";
                 cbAreaNo.ValueMember = "area_no";
                 if (dsArea != null)
@@ -78,7 +78,7 @@ namespace WinAppWcsClient01.LocationMgt
                 }
 
                 strsql = "select * from loc_area_group where void=0";
-                DataSet dsAreaGroup = Common.CommonDaPgsql.ExecuteQuery(strsql);
+                DataSet dsAreaGroup = Common.CommonDa.ExecuteQuery(strsql);
                 cbAreaGroupNo.DisplayMember = "area_group_desc";
                 cbAreaGroupNo.ValueMember = "area_group_id";
                 if (dsAreaGroup != null)
@@ -200,7 +200,7 @@ namespace WinAppWcsClient01.LocationMgt
                 {
                     bool bIsDemo = true;
                     bIsDemo = cbViewMotion.Checked;
-                    Brush PathBrush = Brushes.DarkBlue;
+                    Brush PathBrush = Brushes.LightGoldenrodYellow;
                     if (!bIsDemo)
                     {
                         foreach (EntityLocationCell cPath in lstPathFind)
@@ -233,11 +233,12 @@ namespace WinAppWcsClient01.LocationMgt
                 const int iRadiusStart = 12;
                 const int iRadiusEnd = 15;
                 //画起点终点
-                Brush GridLineBrush = Brushes.Lavender;
+                Brush EndBrush = Brushes.LightSkyBlue;// Brushes.Lavender;
+                Pen StartPen = new Pen(Brushes.DeepSkyBlue);// Brushes.Lavender;
                 Rectangle rectStart = new Rectangle((cStart.X * GridSize + GridSize / 2 - iRadiusStart), (cStart.Y * GridSize + GridSize / 2 - iRadiusStart), iRadiusStart * 2, iRadiusStart * 2); //标识圆的大小
-                objGraph.FillEllipse(GridLineBrush, rectStart);
+                objGraph.FillEllipse(EndBrush, rectStart);
                 Rectangle rectEnd = new Rectangle((cEnd.X * GridSize + GridSize / 2- iRadiusEnd), (cEnd.Y * GridSize + GridSize / 2- iRadiusEnd), iRadiusEnd*2,iRadiusEnd*2); //标识圆的大小
-                objGraph.DrawEllipse(GridLinePen, rectEnd);
+                objGraph.DrawEllipse(StartPen, rectEnd);
                 
                 
             }
@@ -995,7 +996,7 @@ namespace WinAppWcsClient01.LocationMgt
         {
             if (_bLoadDbData)
             {
-                DataSet ds = DaLocationMgt.GetLocationLayoutDS(iCustomerId, iAreaGroupNo, sLocationNo, sItemNo, bIsRunStatistics, iStatisticsTypeNo, dStatStartDate, dStatEndDate);
+                DataSet ds = DaLocationMgt.GetLocationLayoutDs(iCustomerId, iAreaGroupNo, sLocationNo, sItemNo, bIsRunStatistics, iStatisticsTypeNo, dStatStartDate, dStatEndDate);
                 if (ds == null)
                     return;
 
@@ -1060,7 +1061,7 @@ namespace WinAppWcsClient01.LocationMgt
                 Stopwatch sw = new Stopwatch();
                 sw.Start(); //开始
 
-                lstPathFind = WayfindingAStart.FindPath(cStart, cEnd, lstDisabledCells,true);
+                lstPathFind = WayfindingAStar.FindPath(cStart, cEnd, lstDisabledCells,true);
 
                 //停止计时
                 sw.Stop();

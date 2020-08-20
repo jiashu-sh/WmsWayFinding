@@ -35,8 +35,10 @@
             this.splitterBottom = new System.Windows.Forms.Splitter();
             this.splitterTop = new System.Windows.Forms.Splitter();
             this.pnlBottom = new System.Windows.Forms.Panel();
+            this.btnInitWh = new System.Windows.Forms.Button();
             this.pnlTopTitle.SuspendLayout();
             this.pnlTitleNo.SuspendLayout();
+            this.pnlBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTopTitle
@@ -101,11 +103,23 @@
             // 
             // pnlBottom
             // 
+            this.pnlBottom.Controls.Add(this.btnInitWh);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBottom.Location = new System.Drawing.Point(0, 476);
             this.pnlBottom.Name = "pnlBottom";
             this.pnlBottom.Size = new System.Drawing.Size(434, 35);
             this.pnlBottom.TabIndex = 8;
+            // 
+            // btnInitWh
+            // 
+            this.btnInitWh.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnInitWh.Location = new System.Drawing.Point(0, 0);
+            this.btnInitWh.Name = "btnInitWh";
+            this.btnInitWh.Size = new System.Drawing.Size(121, 35);
+            this.btnInitWh.TabIndex = 0;
+            this.btnInitWh.Text = "Init Warehouse";
+            this.btnInitWh.UseVisualStyleBackColor = true;
+            this.btnInitWh.Click += new System.EventHandler(this.btnInitWh_Click);
             // 
             // FormAbout
             // 
@@ -124,6 +138,7 @@
             this.Text = "FormAbout";
             this.pnlTopTitle.ResumeLayout(false);
             this.pnlTitleNo.ResumeLayout(false);
+            this.pnlBottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -137,5 +152,6 @@
         private System.Windows.Forms.Splitter splitterBottom;
         private System.Windows.Forms.Splitter splitterTop;
         private System.Windows.Forms.Panel pnlBottom;
+        private System.Windows.Forms.Button btnInitWh;
     }
 }

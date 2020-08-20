@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinAppWcsClient01.Ai
 {
-    class WayfindingAStart
+    class WayfindingAStar
     {
         //Point p = new System.Drawing.Point();
         public static List<EntityLocationCell> FindPath(EntityLocationCell pStartLocation, EntityLocationCell pEndLocation, List<EntityLocationCell> lstDisableCells,bool bIncludeStartPoint = false)

@@ -54,7 +54,7 @@ namespace WinAppWcsClient01.LocationMgt
                 return ;
 
             string strsql = "select storage_type_id,storage_type_desc from loc_storage_type where void=0 ";
-            DataSet dsStorageTpye = Common.CommonDaPgsql.ExecuteQuery(strsql);
+            DataSet dsStorageTpye = Common.CommonDa.ExecuteQuery(strsql);
             cbStorageType.DisplayMember = "storage_type_desc";
             cbStorageType.ValueMember = "storage_type_id";
             if (dsStorageTpye != null)
@@ -374,7 +374,7 @@ namespace WinAppWcsClient01.LocationMgt
                 return false;
 
             string strsql = "select shelf_no from loc_shelf where shelf_no = '" + sShelfNo + "' ";
-            DataSet dscode = Common.CommonDaPgsql.ExecuteQuery(strsql);
+            DataSet dscode = Common.CommonDa.ExecuteQuery(strsql);
 
             if (dscode != null)
             {
@@ -390,7 +390,7 @@ namespace WinAppWcsClient01.LocationMgt
                 return false;
 
             string strsql = "select lane_no from loc_lane where lane_no = '" + sLaneNo + "' ";
-            DataSet dscode = Common.CommonDaPgsql.ExecuteQuery(strsql);
+            DataSet dscode = Common.CommonDa.ExecuteQuery(strsql);
 
             if (dscode != null)
             {
@@ -406,7 +406,7 @@ namespace WinAppWcsClient01.LocationMgt
                 return false;
 
             string strsql = "select location_no from loc_location where location_no = '" + sLocationNo + "' ";
-            DataSet dscode = Common.CommonDaPgsql.ExecuteQuery(strsql);
+            DataSet dscode = Common.CommonDa.ExecuteQuery(strsql);
 
             if (dscode != null)
             {
