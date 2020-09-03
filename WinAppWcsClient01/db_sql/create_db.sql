@@ -246,4 +246,35 @@ CREATE TABLE main.um_user (
 )
 ;
 
+-- ----------------------------
+-- Table structure for bc_system_no
+-- ----------------------------
+DROP TABLE IF EXISTS main.bc_system_no;
+CREATE TABLE main.bc_system_no (
+  bc_system_no_id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  system_no integer NOT NULL,
+  id_type varchar(50) NOT NULL,  
+  remark_desc varchar(50) null ,
+  void integer default 0  DEFAULT 0,
+  update_time timestamp,
+  update_uid integer default 0 
+)
+;
+
+-- ----------------------------
+-- Table structure for bc_customer
+-- ----------------------------
+DROP TABLE IF EXISTS main.bc_customer;
+CREATE TABLE main.bc_customer (
+  bc_customer_id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  customer_id integer NOT NULL,
+  customer_desc varchar(50) NOT NULL,  
+  remark_desc varchar(50) null ,
+  void integer default 0  DEFAULT 0,
+  update_time timestamp,
+  update_uid integer default 0 
+)
+;
+
+insert into bc_customer (customer_id,customer_desc,void) values (0,'默认客户',0)
 

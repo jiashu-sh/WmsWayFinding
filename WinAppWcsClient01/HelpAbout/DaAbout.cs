@@ -32,7 +32,7 @@ namespace WinAppWcsClient01.HelpAbout
                     //cmd.Parameters.AddWithValue("@type_id", obj.TypeId);
                     //iInsert = cmd.ExecuteNonQuery();
 
-                    int warehouse_id = 1;
+                    int warehouse_id = 100;
                     string warehouse_desc = "1号仓";
                     string remark_desc = "InsertInitWarehouse";
 

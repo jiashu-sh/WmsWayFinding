@@ -33,9 +33,11 @@
             this.tsmiMainFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSubExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMainLocationMgt = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiLocationMapSet = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiMainHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiLocationMapSet = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiMainItemMgt = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiItemMaintain = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +54,7 @@
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiMainFile,
             this.tsmiMainLocationMgt,
+            this.tsmiMainItemMgt,
             this.tsmiMainHelp});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
@@ -82,6 +85,13 @@
             this.tsmiMainLocationMgt.Size = new System.Drawing.Size(62, 21);
             this.tsmiMainLocationMgt.Text = "库位 (&L)";
             // 
+            // tsmiLocationMapSet
+            // 
+            this.tsmiLocationMapSet.Name = "tsmiLocationMapSet";
+            this.tsmiLocationMapSet.Size = new System.Drawing.Size(180, 22);
+            this.tsmiLocationMapSet.Text = "库位平面图设置";
+            this.tsmiLocationMapSet.Click += new System.EventHandler(this.tsmiLocationMapSet_Click);
+            // 
             // tsmiMainHelp
             // 
             this.tsmiMainHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -97,12 +107,20 @@
             this.tsmiHelpAbout.Text = "关于 (&A)";
             this.tsmiHelpAbout.Click += new System.EventHandler(this.tsmiHelpAbout_Click);
             // 
-            // tsmiLocationMapSet
+            // tsmiMainItemMgt
             // 
-            this.tsmiLocationMapSet.Name = "tsmiLocationMapSet";
-            this.tsmiLocationMapSet.Size = new System.Drawing.Size(180, 22);
-            this.tsmiLocationMapSet.Text = "库位平面图设置";
-            this.tsmiLocationMapSet.Click += new System.EventHandler(this.tsmiLocationMapSet_Click);
+            this.tsmiMainItemMgt.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiItemMaintain});
+            this.tsmiMainItemMgt.Name = "tsmiMainItemMgt";
+            this.tsmiMainItemMgt.Size = new System.Drawing.Size(56, 21);
+            this.tsmiMainItemMgt.Text = "产品(I)";
+            // 
+            // tsmiItemMaintain
+            // 
+            this.tsmiItemMaintain.Name = "tsmiItemMaintain";
+            this.tsmiItemMaintain.Size = new System.Drawing.Size(180, 22);
+            this.tsmiItemMaintain.Text = "产品管理";
+            this.tsmiItemMaintain.Click += new System.EventHandler(this.tsmiItemMaintain_Click);
             // 
             // FormMain
             // 
@@ -116,6 +134,7 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormMain";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.ResumeLayout(false);
@@ -133,6 +152,8 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiMainHelp;
         private System.Windows.Forms.ToolStripMenuItem tsmiHelpAbout;
         private System.Windows.Forms.ToolStripMenuItem tsmiLocationMapSet;
+        private System.Windows.Forms.ToolStripMenuItem tsmiMainItemMgt;
+        private System.Windows.Forms.ToolStripMenuItem tsmiItemMaintain;
     }
 }
 

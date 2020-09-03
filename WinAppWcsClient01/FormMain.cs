@@ -15,10 +15,29 @@ namespace WinAppWcsClient01
     {
         public static int WAREHOUSE_ID = 1;
         public static int USER_ID = 1;
+        public static DataSet DS_BC_CUSTOMER = null;
 
         public FormMain()
         {
             InitializeComponent();
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            DS_BC_CUSTOMER = Common.CommonDa.ExecuteQuery("select customer_id,customer_desc from bc_customer where void=0 order by customer_id ");
+
+            DataSet dsWh = Common.CommonDa.ExecuteQuery("select warehouse_id from loc_warehouse where void=0  ");
+            if (dsWh != null)
+            {
+                try
+                {
+                    WAREHOUSE_ID = int.Parse(dsWh.Tables[0].Rows[0]["warehouse_id"].ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
 
         private void tsmiSubExit_Click(object sender, EventArgs e)
@@ -52,5 +71,28 @@ namespace WinAppWcsClient01
             formLocationMapSet.WindowState = FormWindowState.Maximized;
             formLocationMapSet.Activate();
         }
+
+        private void tsmiItemMaintain_Click(object sender, EventArgs e)
+        {
+            ItemMaintain.FormItemMaintain formItemMaintain = null;
+            foreach (Form ftemp in this.MdiChildren) //查找当前父表单所有子表单
+            {
+                if (ftemp is ItemMaintain.FormItemMaintain)
+                {
+                    formItemMaintain = (ItemMaintain.FormItemMaintain)ftemp;
+                    break;
+                }
+            }
+            if (formItemMaintain == null || formItemMaintain.IsDisposed)
+            {
+                formItemMaintain = new ItemMaintain.FormItemMaintain();
+                formItemMaintain.MdiParent = this;
+            }
+            formItemMaintain.Show();
+            //formItemMaintain.WindowState = FormWindowState.Maximized;
+            formItemMaintain.Activate();
+        }
+
+        
     }
 }

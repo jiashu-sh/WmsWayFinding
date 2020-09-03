@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataMatrix.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataMatrix.net.0.4.2\lib\20\DataMatrix.net.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -88,13 +91,19 @@
   <ItemGroup>
     <Compile Include="Ai\EntityLocationCell.cs" />
     <Compile Include="Ai\WayfindingAStar.cs" />
+    <Compile Include="Common\BitmapScaleHelper.cs" />
+    <Compile Include="Common\Code128.cs" />
     <Compile Include="Common\CommonDa.cs" />
     <Compile Include="Common\CommonDaPgsql.cs" />
     <Compile Include="Common\CommonDaSqlite.cs" />
     <Compile Include="Common\CommonDefine.cs" />
+    <Compile Include="Common\CommonUtil.cs" />
     <Compile Include="Common\ConfigIO.cs" />
+    <Compile Include="Common\Ean13.cs" />
     <Compile Include="Common\EnumDbTypes.cs" />
     <Compile Include="EntitiesRbt\EntityRbtUnit.cs" />
+    <Compile Include="Entities\EntityItem.cs" />
+    <Compile Include="Entities\EntityItemBarcode.cs" />
     <Compile Include="Entities\EntityLocation.cs" />
     <Compile Include="Entities\EntityLocLane.cs" />
     <Compile Include="Entities\EntityLocShelf.cs" />
@@ -112,6 +121,19 @@
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="HttpComm\HttpClientUtil.cs" />
+    <Compile Include="ItemMaintain\DaItemMaintain.cs" />
+    <Compile Include="ItemMaintain\FormAddModifyItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemMaintain\FormAddModifyItem.Designer.cs">
+      <DependentUpon>FormAddModifyItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ItemMaintain\FormItemMaintain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ItemMaintain\FormItemMaintain.Designer.cs">
+      <DependentUpon>FormItemMaintain.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocationMgt\BizLocationView.cs" />
     <Compile Include="LocationMgt\DaLocationMgt.cs" />
     <Compile Include="LocationMgt\FormLaneMgt.cs">
@@ -137,6 +159,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HelpAbout\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemMaintain\FormAddModifyItem.resx">
+      <DependentUpon>FormAddModifyItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemMaintain\FormItemMaintain.resx">
+      <DependentUpon>FormItemMaintain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LocationMgt\FormLaneMgt.resx">
       <DependentUpon>FormLaneMgt.cs</DependentUpon>
