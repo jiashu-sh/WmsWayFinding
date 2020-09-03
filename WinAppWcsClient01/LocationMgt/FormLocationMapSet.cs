@@ -9,6 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinAppWcsClient01.Ai;
+using Newtonsoft.Json;
+using System.Threading;
+using System.Web;
+using System.Net.WebSockets;
+using System.Net;
+using System.Diagnostics;//AddAddress方法使用
+using Fleck;
 
 namespace WinAppWcsClient01.LocationMgt
 {
@@ -91,6 +98,8 @@ namespace WinAppWcsClient01.LocationMgt
             }
 
             cbShowGrid.Checked = bShowGrid;
+
+            lbLocalhostIp.Text = Common.CommonUtil.GetIpAddress();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -239,8 +248,29 @@ namespace WinAppWcsClient01.LocationMgt
                 objGraph.FillEllipse(EndBrush, rectStart);
                 Rectangle rectEnd = new Rectangle((cEnd.X * GridSize + GridSize / 2- iRadiusEnd), (cEnd.Y * GridSize + GridSize / 2- iRadiusEnd), iRadiusEnd*2,iRadiusEnd*2); //标识圆的大小
                 objGraph.DrawEllipse(StartPen, rectEnd);
-                
-                
+
+                //定义中心点，尺寸
+                int DollySize = GridSize * 8 /10;
+                Point pDolly = new Point(GridSize + GridSize / 2, GridSize + GridSize / 2);
+                Brush DollyBrush = Brushes.LawnGreen;// Brushes.Lavender;
+                Pen DollyPen = new Pen(Brushes.DarkGreen);// Brushes.Lavender;
+                //画车体块
+                Rectangle rectDolly = new Rectangle((pDolly.X - DollySize / 2 ), (cStart.Y * GridSize + GridSize / 2 - iRadiusStart), iRadiusStart * 2, iRadiusStart * 2); //标识圆的大小
+                Point[] pointsDolly =
+                {
+                    new Point((pDolly.X - DollySize / 2 ), (pDolly.Y - DollySize / 2 )),
+                    new Point((pDolly.X + DollySize / 2 ), (pDolly.Y - DollySize / 2 )),
+                    new Point((pDolly.X + DollySize / 2 ), (pDolly.Y + DollySize / 2 )),
+                    new Point((pDolly.X - DollySize / 2 ), (pDolly.Y + DollySize / 2 ))
+                };
+                objGraph.FillPolygon(DollyBrush, pointsDolly);
+                //画方向箭头
+                Point pArr2 = new Point(pDolly.X, pDolly.Y + DollySize / 2 - 2);
+                Point pArr3 = new Point(pDolly.X - 5, pDolly.Y + DollySize / 2 - 2 -5);
+                Point pArr4 = new Point(pDolly.X + 5, pDolly.Y + DollySize / 2 - 2 - 5);
+                objGraph.DrawLine(DollyPen, pDolly, pArr2);
+                objGraph.DrawLine(DollyPen, pArr3, pArr2);
+                objGraph.DrawLine(DollyPen, pArr4, pArr2);
             }
 
             if (!cbShowShelfMap.Checked)
@@ -1157,5 +1187,77 @@ namespace WinAppWcsClient01.LocationMgt
 
             return bSendRbtCommand;
         }
+
+        private void cbIsListening_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbIsListening.Checked)
+            {
+                string sIpAddress = lbLocalhostIp.Text;
+                string sWebSocketServerUrl = "ws://" + sIpAddress + ":50000/";//"ws://192.168.3.14:50000/"
+
+                lbWsListenStatus.Text = "On";
+                lbWsListenStatus.BackColor = Color.Green;
+                lbWsStatusMsg.Text = ("打开监听" + DateTime.Now.ToString() + "\n");
+                StartWsListener(sWebSocketServerUrl);
+            }
+        }
+
+        ////改为静态对象，方便关闭
+        //HttpListener httpListener = new HttpListener();
+        ////存储当前所有连接的静态列表
+        //private static List<WebSocket> _sockets = new List<WebSocket>();
+
+        /// <summary>
+        /// 对参数地址进行监听，如果是websocket请求，转入相应方法
+        /// </summary>
+        /// <param name="httpListenerPrefix">http监听地址，记得以 / 结尾</param>
+        /// //public async void StartWsListener(string sWebSocketServerUrl)
+        public void StartWsListener(string sWebSocketServerUrl)
+        {
+            FleckLog.Level = LogLevel.Debug;
+            List<IWebSocketConnection> allSockets = new List<IWebSocketConnection>();
+            WebSocketServer server = new WebSocketServer(sWebSocketServerUrl);
+            server.Start(socket =>
+            {
+                socket.OnOpen = () =>
+                {
+                    Console.WriteLine("Open!");
+                    allSockets.Add(socket);
+                };
+                socket.OnClose = () =>
+                {
+                    Console.WriteLine("Close!");
+                    allSockets.Remove(socket);
+                };
+                socket.OnBinary = rcvbytes =>
+                {
+                    string strMsg = Encoding.UTF8.GetString(rcvbytes, 0, rcvbytes.Length);
+                    //输出到界面
+                    InvokeUpdateText iutb = new InvokeUpdateText(SetText);
+                    BeginInvoke(iutb, new object[] { strMsg });
+                    Console.WriteLine("=>" + strMsg);
+                };
+                socket.OnMessage = message =>
+                {
+                    Console.WriteLine(message.GetType());
+                    //string strMsg = Encoding.UTF8.GetString(message)
+                    //if (message.GetType() ==)
+                    Console.WriteLine(message);
+                    
+
+                    allSockets.ToList().ForEach(s => s.Send("Echo: " + message));
+
+                    
+
+                };
+            });
+        }
+
+        public delegate void InvokeUpdateText(string strtb);
+        public void SetText(string text)
+        {
+            lbWsStatusMsg.Text = text;
+        }
+
     }
 }

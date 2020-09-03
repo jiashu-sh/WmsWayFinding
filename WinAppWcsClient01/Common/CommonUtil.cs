@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -111,6 +112,25 @@ namespace WinAppWcsClient01.Common
             return iProductNo;
         }
 
-        
+        internal static string GetIpAddress()
+        {
+            string sGetIpAddress = "";
+
+            string hostName = Dns.GetHostName();   //获取本机名
+            IPHostEntry localhost = Dns.GetHostEntry(hostName);    //方法已过期，可以获取IPv4的地址
+                                                                   //IPHostEntry localhost = Dns.GetHostEntry(hostName);   //获取IPv6地址
+            for (int i = 0; i < localhost.AddressList.Length; i++)
+            {
+                IPAddress localaddr = localhost.AddressList[i];
+                if ((localaddr.ToString().IndexOf("192.") == 0) ||
+                    (localaddr.ToString().IndexOf("10.") == 0))
+                {
+                    sGetIpAddress = localaddr.ToString();
+                    break;
+                }
+            }
+
+            return sGetIpAddress;
+        }
     }
 }

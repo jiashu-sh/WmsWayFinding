@@ -71,6 +71,10 @@
             this.tsmiStartWayfinding = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiSendCommand = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbLocalhostIp = new System.Windows.Forms.Label();
+            this.cbIsListening = new System.Windows.Forms.CheckBox();
+            this.lbWsListenStatus = new System.Windows.Forms.Label();
+            this.lbWsStatusMsg = new System.Windows.Forms.Label();
             this.pnlInput.SuspendLayout();
             this.pnlAreaSel.SuspendLayout();
             this.pnlSettingLock.SuspendLayout();
@@ -90,13 +94,13 @@
             this.pnlInput.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlInput.Location = new System.Drawing.Point(0, 0);
             this.pnlInput.Name = "pnlInput";
-            this.pnlInput.Size = new System.Drawing.Size(984, 40);
+            this.pnlInput.Size = new System.Drawing.Size(1184, 40);
             this.pnlInput.TabIndex = 0;
             // 
             // btnRefresh
             // 
             this.btnRefresh.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnRefresh.Location = new System.Drawing.Point(744, 0);
+            this.btnRefresh.Location = new System.Drawing.Point(944, 0);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(120, 40);
             this.btnRefresh.TabIndex = 6;
@@ -106,21 +110,23 @@
             // 
             // pnlAreaSel
             // 
+            this.pnlAreaSel.Controls.Add(this.cbAreaNo);
+            this.pnlAreaSel.Controls.Add(this.lbAreaNo);
             this.pnlAreaSel.Controls.Add(this.cbRunStatistics);
             this.pnlAreaSel.Controls.Add(this.cbViewABCClass);
             this.pnlAreaSel.Controls.Add(this.cbViewPickingPRI);
             this.pnlAreaSel.Controls.Add(this.lbAreaGroupNo);
             this.pnlAreaSel.Controls.Add(this.cbAreaGroupNo);
             this.pnlAreaSel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlAreaSel.Location = new System.Drawing.Point(150, 0);
+            this.pnlAreaSel.Location = new System.Drawing.Point(136, 0);
             this.pnlAreaSel.Name = "pnlAreaSel";
-            this.pnlAreaSel.Size = new System.Drawing.Size(549, 40);
+            this.pnlAreaSel.Size = new System.Drawing.Size(689, 40);
             this.pnlAreaSel.TabIndex = 3;
             // 
             // cbRunStatistics
             // 
             this.cbRunStatistics.AutoSize = true;
-            this.cbRunStatistics.Location = new System.Drawing.Point(441, 9);
+            this.cbRunStatistics.Location = new System.Drawing.Point(577, 9);
             this.cbRunStatistics.Name = "cbRunStatistics";
             this.cbRunStatistics.Size = new System.Drawing.Size(99, 21);
             this.cbRunStatistics.TabIndex = 2;
@@ -130,7 +136,7 @@
             // cbViewABCClass
             // 
             this.cbViewABCClass.AutoSize = true;
-            this.cbViewABCClass.Location = new System.Drawing.Point(336, 9);
+            this.cbViewABCClass.Location = new System.Drawing.Point(472, 9);
             this.cbViewABCClass.Name = "cbViewABCClass";
             this.cbViewABCClass.Size = new System.Drawing.Size(99, 21);
             this.cbViewABCClass.TabIndex = 2;
@@ -140,7 +146,7 @@
             // cbViewPickingPRI
             // 
             this.cbViewPickingPRI.AutoSize = true;
-            this.cbViewPickingPRI.Location = new System.Drawing.Point(219, 9);
+            this.cbViewPickingPRI.Location = new System.Drawing.Point(355, 9);
             this.cbViewPickingPRI.Name = "cbViewPickingPRI";
             this.cbViewPickingPRI.Size = new System.Drawing.Size(111, 21);
             this.cbViewPickingPRI.TabIndex = 2;
@@ -150,7 +156,7 @@
             // lbAreaGroupNo
             // 
             this.lbAreaGroupNo.AutoSize = true;
-            this.lbAreaGroupNo.Location = new System.Drawing.Point(16, 11);
+            this.lbAreaGroupNo.Location = new System.Drawing.Point(9, 11);
             this.lbAreaGroupNo.Name = "lbAreaGroupNo";
             this.lbAreaGroupNo.Size = new System.Drawing.Size(44, 17);
             this.lbAreaGroupNo.TabIndex = 1;
@@ -159,7 +165,7 @@
             // cbAreaGroupNo
             // 
             this.cbAreaGroupNo.FormattingEnabled = true;
-            this.cbAreaGroupNo.Location = new System.Drawing.Point(66, 7);
+            this.cbAreaGroupNo.Location = new System.Drawing.Point(55, 7);
             this.cbAreaGroupNo.Name = "cbAreaGroupNo";
             this.cbAreaGroupNo.Size = new System.Drawing.Size(130, 25);
             this.cbAreaGroupNo.TabIndex = 0;
@@ -170,7 +176,7 @@
             this.pnlSettingLock.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSettingLock.Location = new System.Drawing.Point(40, 0);
             this.pnlSettingLock.Name = "pnlSettingLock";
-            this.pnlSettingLock.Size = new System.Drawing.Size(110, 40);
+            this.pnlSettingLock.Size = new System.Drawing.Size(96, 40);
             this.pnlSettingLock.TabIndex = 2;
             // 
             // cbSettingLock
@@ -178,7 +184,7 @@
             this.cbSettingLock.AutoSize = true;
             this.cbSettingLock.Checked = true;
             this.cbSettingLock.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSettingLock.Location = new System.Drawing.Point(23, 11);
+            this.cbSettingLock.Location = new System.Drawing.Point(6, 11);
             this.cbSettingLock.Name = "cbSettingLock";
             this.cbSettingLock.Size = new System.Drawing.Size(79, 21);
             this.cbSettingLock.TabIndex = 0;
@@ -210,7 +216,7 @@
             // btnExit
             // 
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnExit.Location = new System.Drawing.Point(864, 0);
+            this.btnExit.Location = new System.Drawing.Point(1064, 0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(120, 40);
             this.btnExit.TabIndex = 0;
@@ -221,7 +227,7 @@
             // cbShowGrid
             // 
             this.cbShowGrid.AutoSize = true;
-            this.cbShowGrid.Location = new System.Drawing.Point(351, 7);
+            this.cbShowGrid.Location = new System.Drawing.Point(288, 7);
             this.cbShowGrid.Name = "cbShowGrid";
             this.cbShowGrid.Size = new System.Drawing.Size(75, 21);
             this.cbShowGrid.TabIndex = 2;
@@ -232,7 +238,7 @@
             // lbAreaNo
             // 
             this.lbAreaNo.AutoSize = true;
-            this.lbAreaNo.Location = new System.Drawing.Point(537, 9);
+            this.lbAreaNo.Location = new System.Drawing.Point(200, 11);
             this.lbAreaNo.Name = "lbAreaNo";
             this.lbAreaNo.Size = new System.Drawing.Size(32, 17);
             this.lbAreaNo.TabIndex = 1;
@@ -241,25 +247,27 @@
             // cbAreaNo
             // 
             this.cbAreaNo.FormattingEnabled = true;
-            this.cbAreaNo.Location = new System.Drawing.Point(575, 5);
+            this.cbAreaNo.Location = new System.Drawing.Point(238, 7);
             this.cbAreaNo.Name = "cbAreaNo";
             this.cbAreaNo.Size = new System.Drawing.Size(70, 25);
             this.cbAreaNo.TabIndex = 0;
             // 
             // pnlBottom
             // 
+            this.pnlBottom.Controls.Add(this.lbWsStatusMsg);
+            this.pnlBottom.Controls.Add(this.cbIsListening);
+            this.pnlBottom.Controls.Add(this.lbWsListenStatus);
+            this.pnlBottom.Controls.Add(this.lbLocalhostIp);
             this.pnlBottom.Controls.Add(this.lbSelectedUnitMacAddress);
             this.pnlBottom.Controls.Add(this.cbShowShelfMap);
             this.pnlBottom.Controls.Add(this.cbViewMotion);
             this.pnlBottom.Controls.Add(this.lbElapsedTime);
             this.pnlBottom.Controls.Add(this.cbShowGrid);
-            this.pnlBottom.Controls.Add(this.lbAreaNo);
             this.pnlBottom.Controls.Add(this.pnlStatus);
-            this.pnlBottom.Controls.Add(this.cbAreaNo);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBottom.Location = new System.Drawing.Point(0, 576);
             this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(984, 35);
+            this.pnlBottom.Size = new System.Drawing.Size(1184, 35);
             this.pnlBottom.TabIndex = 1;
             // 
             // lbSelectedUnitMacAddress
@@ -268,9 +276,9 @@
             this.lbSelectedUnitMacAddress.Dock = System.Windows.Forms.DockStyle.Right;
             this.lbSelectedUnitMacAddress.Font = new System.Drawing.Font("微软雅黑", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbSelectedUnitMacAddress.ForeColor = System.Drawing.Color.White;
-            this.lbSelectedUnitMacAddress.Location = new System.Drawing.Point(844, 0);
+            this.lbSelectedUnitMacAddress.Location = new System.Drawing.Point(1064, 0);
             this.lbSelectedUnitMacAddress.Name = "lbSelectedUnitMacAddress";
-            this.lbSelectedUnitMacAddress.Size = new System.Drawing.Size(140, 35);
+            this.lbSelectedUnitMacAddress.Size = new System.Drawing.Size(120, 35);
             this.lbSelectedUnitMacAddress.TabIndex = 6;
             this.lbSelectedUnitMacAddress.Text = "28-3A-4D-5A-C9-8F";
             this.lbSelectedUnitMacAddress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -280,7 +288,7 @@
             this.cbShowShelfMap.AutoSize = true;
             this.cbShowShelfMap.Checked = true;
             this.cbShowShelfMap.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbShowShelfMap.Location = new System.Drawing.Point(432, 7);
+            this.cbShowShelfMap.Location = new System.Drawing.Point(369, 7);
             this.cbShowShelfMap.Name = "cbShowShelfMap";
             this.cbShowShelfMap.Size = new System.Drawing.Size(99, 21);
             this.cbShowShelfMap.TabIndex = 5;
@@ -290,7 +298,7 @@
             // cbViewMotion
             // 
             this.cbViewMotion.AutoSize = true;
-            this.cbViewMotion.Location = new System.Drawing.Point(664, 7);
+            this.cbViewMotion.Location = new System.Drawing.Point(472, 7);
             this.cbViewMotion.Name = "cbViewMotion";
             this.cbViewMotion.Size = new System.Drawing.Size(99, 21);
             this.cbViewMotion.TabIndex = 4;
@@ -300,7 +308,7 @@
             // lbElapsedTime
             // 
             this.lbElapsedTime.AutoSize = true;
-            this.lbElapsedTime.Location = new System.Drawing.Point(782, 9);
+            this.lbElapsedTime.Location = new System.Drawing.Point(576, 9);
             this.lbElapsedTime.Name = "lbElapsedTime";
             this.lbElapsedTime.Size = new System.Drawing.Size(15, 17);
             this.lbElapsedTime.TabIndex = 3;
@@ -319,13 +327,13 @@
             this.pnlStatus.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlStatus.Location = new System.Drawing.Point(0, 0);
             this.pnlStatus.Name = "pnlStatus";
-            this.pnlStatus.Size = new System.Drawing.Size(328, 35);
+            this.pnlStatus.Size = new System.Drawing.Size(281, 35);
             this.pnlStatus.TabIndex = 0;
             // 
             // lbGridYVal
             // 
             this.lbGridYVal.AutoSize = true;
-            this.lbGridYVal.Location = new System.Drawing.Point(283, 9);
+            this.lbGridYVal.Location = new System.Drawing.Point(239, 9);
             this.lbGridYVal.Name = "lbGridYVal";
             this.lbGridYVal.Size = new System.Drawing.Size(15, 17);
             this.lbGridYVal.TabIndex = 1;
@@ -334,7 +342,7 @@
             // lbGridY
             // 
             this.lbGridY.AutoSize = true;
-            this.lbGridY.Location = new System.Drawing.Point(252, 9);
+            this.lbGridY.Location = new System.Drawing.Point(208, 9);
             this.lbGridY.Name = "lbGridY";
             this.lbGridY.Size = new System.Drawing.Size(33, 17);
             this.lbGridY.TabIndex = 2;
@@ -343,7 +351,7 @@
             // lbGridXVal
             // 
             this.lbGridXVal.AutoSize = true;
-            this.lbGridXVal.Location = new System.Drawing.Point(205, 9);
+            this.lbGridXVal.Location = new System.Drawing.Point(176, 9);
             this.lbGridXVal.Name = "lbGridXVal";
             this.lbGridXVal.Size = new System.Drawing.Size(15, 17);
             this.lbGridXVal.TabIndex = 3;
@@ -352,7 +360,7 @@
             // lbGirdX
             // 
             this.lbGirdX.AutoSize = true;
-            this.lbGirdX.Location = new System.Drawing.Point(174, 9);
+            this.lbGirdX.Location = new System.Drawing.Point(145, 9);
             this.lbGirdX.Name = "lbGirdX";
             this.lbGirdX.Size = new System.Drawing.Size(33, 17);
             this.lbGirdX.TabIndex = 4;
@@ -361,7 +369,7 @@
             // lbYVal
             // 
             this.lbYVal.AutoSize = true;
-            this.lbYVal.Location = new System.Drawing.Point(121, 7);
+            this.lbYVal.Location = new System.Drawing.Point(107, 9);
             this.lbYVal.Name = "lbYVal";
             this.lbYVal.Size = new System.Drawing.Size(15, 17);
             this.lbYVal.TabIndex = 0;
@@ -370,7 +378,7 @@
             // lbYTip
             // 
             this.lbYTip.AutoSize = true;
-            this.lbYTip.Location = new System.Drawing.Point(90, 7);
+            this.lbYTip.Location = new System.Drawing.Point(76, 9);
             this.lbYTip.Name = "lbYTip";
             this.lbYTip.Size = new System.Drawing.Size(25, 17);
             this.lbYTip.TabIndex = 0;
@@ -379,7 +387,7 @@
             // lbXVal
             // 
             this.lbXVal.AutoSize = true;
-            this.lbXVal.Location = new System.Drawing.Point(43, 7);
+            this.lbXVal.Location = new System.Drawing.Point(43, 9);
             this.lbXVal.Name = "lbXVal";
             this.lbXVal.Size = new System.Drawing.Size(15, 17);
             this.lbXVal.TabIndex = 0;
@@ -388,7 +396,7 @@
             // lbXTip
             // 
             this.lbXTip.AutoSize = true;
-            this.lbXTip.Location = new System.Drawing.Point(12, 7);
+            this.lbXTip.Location = new System.Drawing.Point(12, 9);
             this.lbXTip.Name = "lbXTip";
             this.lbXTip.Size = new System.Drawing.Size(25, 17);
             this.lbXTip.TabIndex = 0;
@@ -400,7 +408,7 @@
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 41);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(984, 534);
+            this.pnlMain.Size = new System.Drawing.Size(1184, 534);
             this.pnlMain.TabIndex = 2;
             this.pnlMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMain_Paint);
             this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
@@ -411,7 +419,7 @@
             this.splitterTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitterTop.Location = new System.Drawing.Point(0, 40);
             this.splitterTop.Name = "splitterTop";
-            this.splitterTop.Size = new System.Drawing.Size(984, 1);
+            this.splitterTop.Size = new System.Drawing.Size(1184, 1);
             this.splitterTop.TabIndex = 3;
             this.splitterTop.TabStop = false;
             // 
@@ -421,7 +429,7 @@
             this.splitterBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.splitterBottom.Location = new System.Drawing.Point(0, 575);
             this.splitterBottom.Name = "splitterBottom";
-            this.splitterBottom.Size = new System.Drawing.Size(984, 1);
+            this.splitterBottom.Size = new System.Drawing.Size(1184, 1);
             this.splitterBottom.TabIndex = 4;
             this.splitterBottom.TabStop = false;
             // 
@@ -491,11 +499,61 @@
             this.tsmiSendCommand.Text = "发送任务";
             this.tsmiSendCommand.Click += new System.EventHandler(this.tsmiSendCommand_Click);
             // 
+            // lbLocalhostIp
+            // 
+            this.lbLocalhostIp.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.lbLocalhostIp.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbLocalhostIp.Font = new System.Drawing.Font("微软雅黑", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbLocalhostIp.ForeColor = System.Drawing.Color.White;
+            this.lbLocalhostIp.Location = new System.Drawing.Point(944, 0);
+            this.lbLocalhostIp.Name = "lbLocalhostIp";
+            this.lbLocalhostIp.Size = new System.Drawing.Size(120, 35);
+            this.lbLocalhostIp.TabIndex = 7;
+            this.lbLocalhostIp.Text = "255.255.255.255";
+            this.lbLocalhostIp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cbIsListening
+            // 
+            this.cbIsListening.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cbIsListening.Location = new System.Drawing.Point(812, 0);
+            this.cbIsListening.Name = "cbIsListening";
+            this.cbIsListening.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.cbIsListening.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cbIsListening.Size = new System.Drawing.Size(92, 35);
+            this.cbIsListening.TabIndex = 8;
+            this.cbIsListening.Text = "监听消息";
+            this.cbIsListening.UseVisualStyleBackColor = true;
+            this.cbIsListening.CheckedChanged += new System.EventHandler(this.cbIsListening_CheckedChanged);
+            // 
+            // lbWsListenStatus
+            // 
+            this.lbWsListenStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lbWsListenStatus.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbWsListenStatus.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbWsListenStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lbWsListenStatus.Location = new System.Drawing.Point(904, 0);
+            this.lbWsListenStatus.Name = "lbWsListenStatus";
+            this.lbWsListenStatus.Size = new System.Drawing.Size(40, 35);
+            this.lbWsListenStatus.TabIndex = 9;
+            this.lbWsListenStatus.Text = "Off";
+            this.lbWsListenStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbWsStatusMsg
+            // 
+            this.lbWsStatusMsg.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbWsStatusMsg.Font = new System.Drawing.Font("微软雅黑", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbWsStatusMsg.ForeColor = System.Drawing.Color.Blue;
+            this.lbWsStatusMsg.Location = new System.Drawing.Point(608, 0);
+            this.lbWsStatusMsg.Name = "lbWsStatusMsg";
+            this.lbWsStatusMsg.Size = new System.Drawing.Size(204, 35);
+            this.lbWsStatusMsg.TabIndex = 10;
+            this.lbWsStatusMsg.Text = "0";
+            // 
             // FormLocationMapSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 611);
+            this.ClientSize = new System.Drawing.Size(1184, 611);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.splitterBottom);
             this.Controls.Add(this.splitterTop);
@@ -565,5 +623,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem tsmiSendCommand;
         private System.Windows.Forms.Label lbSelectedUnitMacAddress;
+        private System.Windows.Forms.CheckBox cbIsListening;
+        private System.Windows.Forms.Label lbLocalhostIp;
+        private System.Windows.Forms.Label lbWsListenStatus;
+        private System.Windows.Forms.Label lbWsStatusMsg;
     }
 }
