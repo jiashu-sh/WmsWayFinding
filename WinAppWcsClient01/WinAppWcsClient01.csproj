@@ -96,7 +96,9 @@
     <Compile Include="Ai\WayfindingAStar.cs" />
     <Compile Include="Common\BitmapScaleHelper.cs" />
     <Compile Include="Common\Code128.cs" />
+    <Compile Include="Common\CommonCoordinateTrans.cs" />
     <Compile Include="Common\CommonDa.cs" />
+    <Compile Include="Common\CommonDaLogs.cs" />
     <Compile Include="Common\CommonDaPgsql.cs" />
     <Compile Include="Common\CommonDaSqlite.cs" />
     <Compile Include="Common\CommonDefine.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Entities\EntityLocation.cs" />
     <Compile Include="Entities\EntityLocLane.cs" />
     <Compile Include="Entities\EntityLocShelf.cs" />
+    <Compile Include="Entities\EntityRbtReportStatus.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +187,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="db_file\rbt_logs.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="db_file\wcs_local.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

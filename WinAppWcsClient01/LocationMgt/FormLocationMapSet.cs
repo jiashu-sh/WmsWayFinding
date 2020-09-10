@@ -238,6 +238,7 @@ namespace WinAppWcsClient01.LocationMgt
                     }
                 }
 
+                #region 画终点起点，以及坐标方向
                 //定义起点终点的半径
                 const int iRadiusStart = 12;
                 const int iRadiusEnd = 15;
@@ -248,29 +249,57 @@ namespace WinAppWcsClient01.LocationMgt
                 objGraph.FillEllipse(EndBrush, rectStart);
                 Rectangle rectEnd = new Rectangle((cEnd.X * GridSize + GridSize / 2- iRadiusEnd), (cEnd.Y * GridSize + GridSize / 2- iRadiusEnd), iRadiusEnd*2,iRadiusEnd*2); //标识圆的大小
                 objGraph.DrawEllipse(StartPen, rectEnd);
+                //画坐标轴
+                //画方向箭头
+                Point pArrX1 = new Point(GridSize / 2, GridSize / 2);
+                Point pArrX2 = new Point(GridSize - 2, GridSize / 2);
+                Point pArrX3 = new Point(GridSize -2 - 5, GridSize / 2 - 5);
+                Point pArrX4 = new Point(GridSize - 2 - 5, GridSize / 2 + 5);
+                objGraph.DrawLine(StartPen, pArrX1, pArrX2);
+                objGraph.DrawLine(StartPen, pArrX2, pArrX3);
+                objGraph.DrawLine(StartPen, pArrX2, pArrX4);
+                objGraph.DrawString("x E", locNoFont, locNoTextBrush, pArrX2.X - 15 , pArrX2.Y + 5);
+                Point pArrY1 = new Point(GridSize / 2, GridSize / 2);
+                Point pArrY2 = new Point(GridSize / 2, 2);
+                Point pArrY3 = new Point( GridSize / 2 - 5, 2 + 5);
+                Point pArrY4 = new Point( GridSize / 2 + 5, 2 + 5);
+                objGraph.DrawLine(StartPen, pArrY1, pArrY2);
+                objGraph.DrawLine(StartPen, pArrY2, pArrY3);
+                objGraph.DrawLine(StartPen, pArrY2, pArrY4);
+                objGraph.DrawString("y N", locNoFont, locNoTextBrush, 2, pArrY2.Y );
+                #endregion
+
+                //定义笔刷，线条颜色
+                Brush DollyBrush = Brushes.LawnGreen;// Brushes.Lavender;
+                Pen DollyPen = new Pen(Brushes.DarkGreen);// Brushes.DarkGreen;
+                Pen DollyPathPen = new Pen(Brushes.DarkGray);// Brushes.DarkGray;
 
                 //定义中心点，尺寸
                 int DollySize = GridSize * 8 /10;
-                Point pDolly = new Point(GridSize + GridSize / 2, GridSize + GridSize / 2);
-                Brush DollyBrush = Brushes.LawnGreen;// Brushes.Lavender;
-                Pen DollyPen = new Pen(Brushes.DarkGreen);// Brushes.Lavender;
-                //画车体块
-                Rectangle rectDolly = new Rectangle((pDolly.X - DollySize / 2 ), (cStart.Y * GridSize + GridSize / 2 - iRadiusStart), iRadiusStart * 2, iRadiusStart * 2); //标识圆的大小
+                Point pDollyCenter = new Point(GridSize + GridSize / 2, GridSize + GridSize / 2); //小车中心点
+                double dDollyAngle = 15; //小车角度
+                Common.CommonDefine.Orientation oDollyOrientation = Common.CommonDefine.Orientation.W; //小车初始方向
+
+                //画车体块(默认)
+                //Rectangle rectDolly = new Rectangle((pDollyCenter.X - DollySize / 2 ), (cStart.Y * GridSize + GridSize / 2 - iRadiusStart), iRadiusStart * 2, iRadiusStart * 2); //标识圆的大小
                 Point[] pointsDolly =
                 {
-                    new Point((pDolly.X - DollySize / 2 ), (pDolly.Y - DollySize / 2 )),
-                    new Point((pDolly.X + DollySize / 2 ), (pDolly.Y - DollySize / 2 )),
-                    new Point((pDolly.X + DollySize / 2 ), (pDolly.Y + DollySize / 2 )),
-                    new Point((pDolly.X - DollySize / 2 ), (pDolly.Y + DollySize / 2 ))
+                    new Point((pDollyCenter.X - DollySize / 2 ), (pDollyCenter.Y - DollySize / 2 )),
+                    new Point((pDollyCenter.X + DollySize / 2 ), (pDollyCenter.Y - DollySize / 2 )),
+                    new Point((pDollyCenter.X + DollySize / 2 ), (pDollyCenter.Y + DollySize / 2 )),
+                    new Point((pDollyCenter.X - DollySize / 2 ), (pDollyCenter.Y + DollySize / 2 ))
                 };
-                objGraph.FillPolygon(DollyBrush, pointsDolly);
-                //画方向箭头
-                Point pArr2 = new Point(pDolly.X, pDolly.Y + DollySize / 2 - 2);
-                Point pArr3 = new Point(pDolly.X - 5, pDolly.Y + DollySize / 2 - 2 -5);
-                Point pArr4 = new Point(pDolly.X + 5, pDolly.Y + DollySize / 2 - 2 - 5);
-                objGraph.DrawLine(DollyPen, pDolly, pArr2);
-                objGraph.DrawLine(DollyPen, pArr3, pArr2);
-                objGraph.DrawLine(DollyPen, pArr4, pArr2);
+                pointsDolly = Common.CommonCoordinateTrans.GetDollyPoints(pDollyCenter, DollySize, dDollyAngle, oDollyOrientation);
+                objGraph.DrawPolygon(DollyPen, pointsDolly);
+                //objGraph.FillPolygon(DollyBrush, pointsDolly);
+                //画方向线段
+                Point pArr2 = new Point(pDollyCenter.X , pDollyCenter.Y);
+                Point pArr3 = new Point(pDollyCenter.X, pDollyCenter.Y + DollySize / 2 - 7);
+                Point pArrCenter = new Point(pDollyCenter.X - 2, pDollyCenter.Y - 2);
+                Rectangle rectDollyHead = new Rectangle(pArrCenter, new Size(4,4)); //标识圆的大小
+                pArr3 = Common.CommonCoordinateTrans.GetDollyOrientation(pDollyCenter, DollySize, dDollyAngle, oDollyOrientation);
+                objGraph.DrawEllipse(DollyPen, rectDollyHead);
+                objGraph.DrawLine(DollyPen, pArr2, pArr3);
             }
 
             if (!cbShowShelfMap.Checked)
@@ -1254,9 +1283,15 @@ namespace WinAppWcsClient01.LocationMgt
         }
 
         public delegate void InvokeUpdateText(string strtb);
-        public void SetText(string text)
+        public void SetText(string sJson)
         {
-            lbWsStatusMsg.Text = text;
+            try
+            {
+                Entities.EntityRbtReportStatus rbtStatus = JsonConvert.DeserializeObject<Entities.EntityRbtReportStatus>(sJson);
+                if (Common.CommonDaLogs.InsertLogs(rbtStatus))
+                    lbWsStatusMsg.Text = rbtStatus.LeftWheelSpeed.ToString() + "/" + rbtStatus.RightWheelSpeed.ToString() + " , ";
+            }
+            catch { }
         }
 
     }

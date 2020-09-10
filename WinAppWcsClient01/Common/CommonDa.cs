@@ -32,6 +32,33 @@ namespace WinAppWcsClient01.Common
             return connection_string;
         }
 
+        public static string GetDbConnection(string sConfigPara)
+        {
+            string connection_string = "";
+            try
+            {
+                //从Config配置文件中获取数据库连接字符串并返回OleDb连接
+                //System.Data.OleDb.OleDbConnection oleconn = new System.Data.OleDb.OleDbConnection(SunnyWMSClient.Properties.Settings.Default.CodeMaintainConnectionString);
+
+                if (CommonDa.GetDbType() == EnumDbTypes.PgSql)
+                    connection_string = ConfigIO.GetConnectionString("postgresql_conn");
+                else if (CommonDa.GetDbType() == EnumDbTypes.Sqlite)
+                {
+                    connection_string = ConfigIO.GetConnectionString("sqlite_conn");
+                    if (sConfigPara.Trim() != "")
+                        connection_string = ConfigIO.GetConnectionString(sConfigPara); ;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                return "";
+                //return null;
+            }
+
+            return connection_string;
+        }
+
         internal static DataSet ExecuteQuery(string strsql)
         {
             if (CommonDa.GetDbType() == EnumDbTypes.Sqlite)
