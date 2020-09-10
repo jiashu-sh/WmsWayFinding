@@ -27,7 +27,7 @@ namespace WinAppWcsClient01.LocationMgt
         private bool bShowGrid = true;
         //private bool bEnableConfiguration = false;
 
-        private const int DEFAULT_GRID_SIZE = 50;
+        private const int DEFAULT_GRID_SIZE = 40;
 
         private static int iParaX;
         private static int iParaY;
@@ -137,10 +137,14 @@ namespace WinAppWcsClient01.LocationMgt
                 }
             }
 
+            
             //绘制网格底图
             if (bShowGrid) //显示网格
             {
+                #region 绘制网格底图
                 Pen GridLinePen = new Pen(Color.Lavender); //位置画笔
+                GridLinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash; //网格设置为虚线
+
                 //System.Drawing.Font font = new System.Drawing.Font("Arial Black", 9); // 绘制文本字体
                 System.Drawing.Font locNoFont = new System.Drawing.Font("Arial Black", 7); // 绘制文本字体
                 Brush locNoTextBrush = Brushes.DodgerBlue;
@@ -237,11 +241,13 @@ namespace WinAppWcsClient01.LocationMgt
                         }
                     }
                 }
+                #endregion
 
                 #region 画终点起点，以及坐标方向
+                System.Drawing.Font ArrFont = new System.Drawing.Font("Arial", 6); // 绘制文本字体
                 //定义起点终点的半径
-                const int iRadiusStart = 12;
-                const int iRadiusEnd = 15;
+                const int iRadiusStart = DEFAULT_GRID_SIZE *24 /100;
+                const int iRadiusEnd = DEFAULT_GRID_SIZE *3 /10;
                 //画起点终点
                 Brush EndBrush = Brushes.LightSkyBlue;// Brushes.Lavender;
                 Pen StartPen = new Pen(Brushes.DeepSkyBlue);// Brushes.Lavender;
@@ -258,7 +264,7 @@ namespace WinAppWcsClient01.LocationMgt
                 objGraph.DrawLine(StartPen, pArrX1, pArrX2);
                 objGraph.DrawLine(StartPen, pArrX2, pArrX3);
                 objGraph.DrawLine(StartPen, pArrX2, pArrX4);
-                objGraph.DrawString("x E", locNoFont, locNoTextBrush, pArrX2.X - 15 , pArrX2.Y + 5);
+                objGraph.DrawString("x E", ArrFont, locNoTextBrush, pArrX2.X - 15 , pArrX2.Y + 5);
                 Point pArrY1 = new Point(GridSize / 2, GridSize / 2);
                 Point pArrY2 = new Point(GridSize / 2, 2);
                 Point pArrY3 = new Point( GridSize / 2 - 5, 2 + 5);
@@ -266,7 +272,7 @@ namespace WinAppWcsClient01.LocationMgt
                 objGraph.DrawLine(StartPen, pArrY1, pArrY2);
                 objGraph.DrawLine(StartPen, pArrY2, pArrY3);
                 objGraph.DrawLine(StartPen, pArrY2, pArrY4);
-                objGraph.DrawString("y N", locNoFont, locNoTextBrush, 2, pArrY2.Y );
+                objGraph.DrawString("y N", ArrFont, locNoTextBrush, 2, pArrY2.Y );
                 #endregion
 
                 //定义笔刷，线条颜色
@@ -277,7 +283,7 @@ namespace WinAppWcsClient01.LocationMgt
                 //定义中心点，尺寸
                 int DollySize = GridSize * 8 /10;
                 Point pDollyCenter = new Point(GridSize + GridSize / 2, GridSize + GridSize / 2); //小车中心点
-                double dDollyAngle = 15; //小车角度
+                double dDollyAngle = 0; //小车角度
                 Common.CommonDefine.Orientation oDollyOrientation = Common.CommonDefine.Orientation.W; //小车初始方向
 
                 //画车体块(默认)
